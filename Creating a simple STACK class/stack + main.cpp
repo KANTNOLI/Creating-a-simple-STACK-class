@@ -10,6 +10,7 @@ public:
 	void push(T data);
 	void pop();
 	T top();
+	bool empty();
 
 private:
 
@@ -65,6 +66,11 @@ T Stack<T>::top() {
 }
 
 template<typename T>
+bool Stack<T>::empty() {
+	return size > 0;
+}
+
+template<typename T>
 Stack<T>::Stack() {
 	size = 0;
 	head = nullptr;
@@ -72,6 +78,9 @@ Stack<T>::Stack() {
 
 template<typename T>
 Stack<T>::~Stack() {
+	for (int i = 0; i < get_size(); i++) {
+		pop();
+	}
 }
 
 
@@ -86,9 +95,11 @@ int main() {
 	}
 
 	cout << "Elements size: " << stack.get_size() << endl;
-	stack.pop();
-	cout << "Using function POP" << endl; 
-	cout << "Elements size: " << stack.get_size() << endl; 
-	cout << "Element TOP: " << stack.top() << endl; 
+
+	cout << "Element TOP: ";
+	while (stack.empty()) {
+		cout << to_string(stack.top()) << " ";
+		stack.pop();
+	}
 	return 0;
 }
